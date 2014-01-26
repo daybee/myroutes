@@ -1,0 +1,11 @@
+do ->
+  app = angular.module('MyRoutesApp', ['ngResource'])
+  app.factory('RouteService', ['$resource', ($resource) ->
+    $resource('<%= asset_path("/routes.json") %>')
+  ])
+  app.controller('AppController', ['$scope', 'RouteService', ($scope, RouteService) ->
+    $scope.routes = [{id: 1, title: 'HOGE', description: 'HOGEHOGE'}]
+    $scope.getData = ->
+      console.log('try getData')
+      $scope.routes = RouteService.get
+  ])
