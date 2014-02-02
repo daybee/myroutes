@@ -13,11 +13,11 @@ class RoutesController < ApplicationController
   # GET /routes/1
   # GET /routes/1.json
   def show
-    @route = Route.find(params[:id])
+    @route = Route.includes(:coordinates).find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @route }
+      format.json { render json: @route.as_json(include: :coordinates) }
     end
   end
 

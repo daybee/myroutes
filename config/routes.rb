@@ -1,7 +1,7 @@
 Myroutes::Application.routes.draw do
   root :to => 'index#index'
   resources :routes
-
+  resources :coordinates
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

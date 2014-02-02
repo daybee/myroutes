@@ -1,6 +1,13 @@
-<div ng-controller="AppController">
-  <ul>
-    <li ng-repeat="route in routes">{{route.title}}</li>
-  </ul>
-  <input type="button" value="get" ng-click="getData()">
-</div>
+<!DOCTYPE html>
+<html ng-app="MyRoutesApp">
+<head>
+  <title>Myroutes</title>
+  <%= stylesheet_link_tag "application", :media => "all" %>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <div ng-view></div>
+<%= javascript_include_tag "application" %>
+</body>
+</html>

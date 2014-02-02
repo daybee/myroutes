@@ -1,19 +1,45 @@
 do ->
   # $resourceをインジェクション
-  app = angular.module('MyRoutesApp', ['ngResource'])
+  app = angular.module('MyRoutesApp', ['ngResource', 'ngRoute'])
 
   # Rails CSRFトークンを使用するように設定
-  app.config ["$httpProvider", ($httpProvider) ->
+  app.config ['$httpProvider', ($httpProvider) ->
     $httpProvider.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content');
     $httpProvider.defaults.headers.common['X-Requested-With'] = "XMLHttpRequest"
   ]
 
-  # Routeテーブルに対するRESTfullのマッパーを定義
+  # ルーティングの設定
+  app.config ['$routeProvider', ($routeProvider) ->
+    $routeProvider.when('/', {
+      templateUrl: 'list.html',
+      controller: 'ListController'
+    }).when('/route/:id', {
+      templateUrl: 'route.html',
+      controller: 'RouteController'
+    }).otherwise({
+      redirectTo: '/'
+    })
+  ]
+
+  # Routesテーブルに対するRESTfullのマッパーを定義
   app.factory('Routes', ['$resource', ($resource) ->
-    $resource('<%= asset_path("/routes/:id.json") %>', {id: '@id'})
+    $resource('/routes/:id.json', {id: '@id'})
+  ])
+
+  # Coordinatesテーブルに対するRESTfullのマッパーを定義
+  app.factory('Coordinates', ['$resource', ($resource) ->
+    $resource('/coordinates/:id.json', {id: '@id'})
   ])
 
   # コントローラその壱
-  app.controller('AppController', ['$scope', 'Routes', ($scope, Routes) ->
-    $scope.routes = Routes.query()
+  app.controller('ListController', ['$scope', 'Routes',
+    ($scope, Routes) ->
+      $scope.routes = Routes.query()
+  ])
+
+  # コントローラその壱
+  app.controller('RouteController', ['$scope', '$routeParams', 'Routes', 'Coordinates',
+    ($scope, $routeParams, Routes, Coordinates) ->
+      $scope.route = Routes.get({id: $routeParams.id})
+      console.log($scope.route)
   ])

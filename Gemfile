@@ -38,7 +38,6 @@ gem 'jquery-rails'
 # To use debugger
 # gem 'debugger'
 
-gem "dotenv-rails"
 group :assets do
   gem "better_errors"
   gem "binding_of_caller"
@@ -52,3 +51,4 @@ gem "rails-assets-angular-route"
 gem "rails-assets-angular-resource"
 gem "rails-assets-bootstrap"
 gem "thin"
+gem "sequenced"

@@ -11,7 +11,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140126161057) do
+ActiveRecord::Schema.define(:version => 20140202163140) do
+
+  create_table "coordinates", :force => true do |t|
+    t.integer  "route_id"
+    t.integer  "sequential_id"
+    t.decimal  "latitude"
+    t.decimal  "longitude"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
 
   create_table "routes", :force => true do |t|
     t.string   "title"
