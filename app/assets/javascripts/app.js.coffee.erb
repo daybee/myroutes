@@ -16,6 +16,12 @@ do ->
     }).when('/route/:id', {
       templateUrl: 'route.html',
       controller: 'RouteController'
+    }).when('/route/new', {
+      templateUrl: 'route_detail.html',
+      controller: 'RouteDetailController'
+    }).when('/route/:id/edit', {
+      templateUrl: 'route_detail.html',
+      controller: 'RouteDetailController'
     }).otherwise({
       redirectTo: '/'
     })
@@ -31,15 +37,28 @@ do ->
     $resource('/coordinates/:id.json', {id: '@id'})
   ])
 
-  # コントローラその壱
+  # 一覧画面のコントローラ
   app.controller('ListController', ['$scope', 'Routes',
     ($scope, Routes) ->
       $scope.routes = Routes.query()
   ])
 
-  # コントローラその壱
-  app.controller('RouteController', ['$scope', '$routeParams', 'Routes', 'Coordinates',
-    ($scope, $routeParams, Routes, Coordinates) ->
+  # 地図表示画面のコントローラ
+  app.controller('RouteController', ['$scope', '$routeParams', 'Routes',
+    ($scope, $routeParams, Routes) ->
       $scope.route = Routes.get({id: $routeParams.id})
       console.log($scope.route)
+  ])
+
+  # ルート編集画面のコントローラ
+  app.controller('RouteDetailController', ['$scope', '$routeParams', 'Routes', 'Coordinates',
+    ($scope, $routeParams, Routes, Coordinates) ->
+      if $$routeParams.id?
+        $scope.route = Routes.get({id: $routeParams.id})
+      else
+        $scope.route = {
+          title: '',
+          description: '',
+          coordinates: []
+        }
   ])
