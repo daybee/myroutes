@@ -1,11 +1,19 @@
 do ->
+  # $resourceをインジェクション
   app = angular.module('MyRoutesApp', ['ngResource'])
-  app.factory('RouteService', ['$resource', ($resource) ->
-    $resource('<%= asset_path("/routes.json") %>')
+
+  # Rails CSRFトークンを使用するように設定
+  app.config ["$httpProvider", ($httpProvider) ->
+    $httpProvider.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content');
+    $httpProvider.defaults.headers.common['X-Requested-With'] = "XMLHttpRequest"
+  ]
+
+  # Routeテーブルに対するRESTfullのマッパーを定義
+  app.factory('Routes', ['$resource', ($resource) ->
+    $resource('<%= asset_path("/routes/:id.json") %>', {id: '@id'})
   ])
-  app.controller('AppController', ['$scope', 'RouteService', ($scope, RouteService) ->
-    $scope.routes = [{id: 1, title: 'HOGE', description: 'HOGEHOGE'}]
-    $scope.getData = ->
-      console.log('try getData')
-      $scope.routes = RouteService.get
+
+  # コントローラその壱
+  app.controller('AppController', ['$scope', 'Routes', ($scope, Routes) ->
+    $scope.routes = Routes.query()
   ])
