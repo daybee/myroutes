@@ -11,8 +11,8 @@
     </div>
     <div class="collapse navbar-collapse navbar-right navbar-ex1-collapse">
       <ul class="nav navbar-nav">
-        <li><a href="/#/route/{{route.id}}/edit">Edit</a></li>
-        <li><a href="/#/">Back</a></li>
+        <li><a ng-click="register()">Save</a></li>
+        <li><a href="{{prevUrl}}">Back</a></li>
       </ul>
     </div>
   </div>
@@ -21,8 +21,10 @@
 <div class="container">
   <div class="row">
     <div class="col-xs-12">
-      <h2>{{route.title}}</h2>
-      <p>{{route.description}}</p>
+      <form action="">
+        <input type="text" name="title" placeholder="Title" class="form-control" ng-model="route.title">
+        <textarea name="description" placeholder="Description" id="" cols="30" rows="5" class="form-control" ng-model="route.description"></textarea>
+      </form>
     </div>
     <leaflet center="center" paths="paths" class="col-xs-12" height="500px"></leaflet>
   </div>

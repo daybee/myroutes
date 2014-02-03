@@ -11,8 +11,10 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require jquery
+//= require leaflet
 //= require angular
 //= require angular-route
 //= require angular-resource
+//= require angular-leaflet-directive
 //= require bootstrap
 //= require app
