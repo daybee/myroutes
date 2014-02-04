@@ -11,7 +11,7 @@
     </div>
     <div class="collapse navbar-collapse navbar-right navbar-ex1-collapse">
       <ul class="nav navbar-nav">
-        <li ng-hide="routeInfo.$invalid"><a ng-click="register()">Save</a></li>
+        <li ng-hide="routeInfo.$invalid"><a ng-click="register()" style="cursor:pointer;">Save</a></li>
         <li><a href="{{prevUrl}}">Back</a></li>
       </ul>
     </div>
@@ -21,7 +21,7 @@
 <div class="container">
   <div class="row">
     <div class="col-xs-12">
-      <div class="alert alert-danger" ng-show="routeInfo.$invalid">
+      <div class="alert alert-danger" ng-show="routeInfo.$dirty && routeInfo.$invalid">
         <span ng-show="routeInfo.title.$error.required">Title <b>Required</b>.</span>
         <span ng-show="routeInfo.title.$error.maxlength">Title is <b>too long</b>.</span>
       </div>
