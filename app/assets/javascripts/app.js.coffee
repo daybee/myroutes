@@ -31,14 +31,14 @@ do ->
     })
   ]
 
-  # Routesテーブルに対するRESTfullのマッパーを定義
+  # Routesテーブルに対するRESTfulのマッパーを定義
   app.factory 'Route', ['$resource', ($resource) ->
     $resource '/routes/:id.json', {id: '@id'}, {
       update: {method: 'PUT'}
     }
   ]
 
-  # Coordinatesテーブルに対するRESTfullのマッパーを定義
+  # Coordinatesテーブルに対するRESTfulのマッパーを定義
   app.factory 'Coordinate', ['$resource', ($resource) ->
     $resource '/coordinates/:id.json', {id: '@id'}
   ]
