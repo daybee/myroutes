@@ -1,0 +1,1 @@
+app/config/initializers/secret_token.rbはignoreしてあるので自分で作ってね
